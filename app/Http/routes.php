@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('index');
 });
+//隐式控制器
+Route::Controller('/Admin','AdminController');

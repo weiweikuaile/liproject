@@ -38,7 +38,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5<br>当前时间：{{date('Y-m-d H:i:s',time())}}</div>
+                <div class="title">Laravel 5<br>当前时间：{{date('Y-m-d H:i:s',time())}}<br>liproject/liproject.cn</div>
             </div>
         </div>
     </body>
