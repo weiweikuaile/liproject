@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-abstract class AdminController extends Controller
+class AdminController extends Controller
 {
-    
+    //后台首页
+    public function getIndex()
+    {
+    	//解析模板
+    	return view('admin.index');
+    }
 }

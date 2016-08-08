@@ -15,4 +15,8 @@ Route::get('/', function () {
     return view('index');
 });
 //隐式控制器
-Route::Controller('/Admin','AdminController');
+//后台
+Route::Controller('/admin/','AdminController');
+//后台用户的控制器
+Route::Controller('/admin/user','UserController');
+
