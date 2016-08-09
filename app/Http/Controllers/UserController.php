@@ -118,7 +118,7 @@ class UserController extends Controller
 		})->paginate($num);
 		
     	//解析模板
-    	return view('user.index',['users'=>$users]);
+    	return view('user.index',['users'=>$users,'request'=>$request->all()]);
     }
 
     /**
@@ -148,5 +148,25 @@ class UserController extends Controller
     		return '/uploads/default.jpg';
     	}
     	
+    }
+
+
+    /*
+    *ajax删除用户
+    *
+    */
+    public function postDelete(Request $request)
+    {
+    	//dd($request->input('id'));
+    	//var_dump($request->input('id'));
+    	$id=$request->input('id');
+    	$res=DB::table('users')->where('id',$id)->delete();
+    	//判断返回
+    	if($res){
+    		echo 1;
+    	}else{
+    		echo 0;
+    	}
+
     }
 }

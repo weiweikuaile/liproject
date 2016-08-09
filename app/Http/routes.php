@@ -15,8 +15,29 @@ Route::get('/', function () {
     return view('index');
 });
 //隐式控制器
-//后台
-Route::Controller('/admin/','AdminController');
-//后台用户的控制器
-Route::Controller('/admin/user','UserController');
+//路由组
+Route::group(['middleware'=>'adminlogin'],function(){
+	//后台
+	Route::Controller('/admin/','AdminController');
+	//后台用户的控制器
+	Route::Controller('/admin/user','UserController');
+	//后台商品分类
+	//Route::Controller('/admin/cate','CateController');
+	//商品操作
+	//Route::Controller('/admin/goods','GoodsController');
+
+});
+//后台登录页面
+Route::Controller('/admin/login','LoginController');
+
+//注册页面
+Route::get('/register','LoginController@register');
+Route::post('/doregister','LoginController@doregister');
+//验证码测试，后边改过来
+//Route::get('/vcode','LoginController@vcode');
+Route::get('/sendmail','LoginController@sendmail');
+/*Route::get('/sendmail',function(){
+	return view('email.index');
+});*/
+Route::get('/jihuo','LoginController@jihuo');
 
