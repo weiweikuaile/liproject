@@ -12,11 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('home.homeindex');
 });
 //隐式控制器
 //路由组
-Route::group(['middleware'=>'adminlogin'],function(){
+//Route::group(['middleware'=>'adminlogin'],function(){
 	//后台
 	Route::Controller('/admin/','AdminController');
 	//后台用户的控制器
@@ -25,9 +25,10 @@ Route::group(['middleware'=>'adminlogin'],function(){
 	//Route::Controller('/admin/cate','CateController');
 	//商品操作
 	//Route::Controller('/admin/goods','GoodsController');
-
-});
-//后台登录页面
+	//商品详情
+	//Route::Controller('/goods','GoodsController');
+//});
+//后台登录页面************
 Route::Controller('/admin/login','LoginController');
 
 //注册页面

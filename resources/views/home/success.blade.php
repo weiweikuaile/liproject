@@ -24,7 +24,10 @@
         	<div class="container">
         		<div class="row">
         		<div class="col-md-6 col-md-offset-3">
-        			<div class="alert alert-info" role="alert">欢迎您注册凡客网，您的激活邮件已经发送至您的邮箱，请前去激活。</div> 
+        			<div class="alert alert-info" role="alert">
+                    欢迎您注册凡客网，您的激活邮件已经发送至您的邮箱，请前去激活。
+                     <a href="{{url('/')}}">回首页</a>   
+                    </div> 
         		</div>
         		</div>
         	</div>

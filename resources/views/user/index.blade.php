@@ -89,9 +89,10 @@
                     <td class="center"><img width="50px" src="{{$v->pic}}"></td>
                     <td class="center">
                            
-                            <button class="btn btn-info btn-xs btn_update" href="{:U('edit',array('id'=>$item['id']))}"><i class="fa fa-paste"></i> 修改</button>
-                            
-                            <button class="btn btn-warning btn-xs btn_delete" href="javascript:ajaxDelete('{:U('delete',['id'=>$item['id']])}')"><i class="fa fa-times"></i> 删除</button>
+                            <!-- <button class="btn btn-info btn-xs btn_update" href="{:U('edit',array('id'=>$item['id']))}"><i class="fa fa-paste"></i> 修改</button> -->
+                            <button class="btn btn-info btn-xs btn_update" href=""><i class="fa fa-paste"></i> 修改</button>
+                            <!-- <button class="btn btn-warning btn-xs btn_delete" href="javascript:ajaxDelete('{:U('delete',['id'=>$item['id']])}')"><i class="fa fa-times"></i> 删除</button> -->
+                            <button class="btn btn-warning btn-xs btn_delete" type="button"><i class="fa fa-times"></i> 删除</button>
                     </td>
                     <td>{{$v->status}}</td>
                 </tr>
@@ -143,7 +144,9 @@
     $('.btn_delete').click(function(){
         //alert('4444444');//第一步看点击删除按钮时，能否弹出4444444的内容，出现了就代表绑定单击事件成功。
         //获取id
+        var n=$(this);
         var id=$(this).parents('tr').find('.sid').html();
+
         //alert(id);
         //把id传到控制器方法里
         //ajax post请求会出现Token错误csrf保护问题 响应500,所以下边会报这样的错误信息。
@@ -151,15 +154,19 @@
         //<meta name="csrf-token" content="{{csrf_token()}}">
         //设置ajax全局配置
         $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-});
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         //发送ajax post请求
         $.post('{{url("/admin/user/delete")}}',{id:id},function(data){
-            console.log(data);
+            //console.log(data);
+                if(data == 1){
+                    n.parents('tr').remove();
+                }
 
-            )};
+            });
         
     })
     </script>
