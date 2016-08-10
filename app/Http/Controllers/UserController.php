@@ -39,14 +39,14 @@ class UserController extends Controller
             'body' => 'required',
         ]);*/
 		$this->validate($request,[
-			'username' => 'required|regex:/\w{6,18}/',
+			'username' => 'required|regex:/\w{6,30}/',
             'password' => 'required|regex:/\w{6,18}/',
             'repassword' => 'required|same:password',
             'email' => 'required|email',
             'phone' => 'required|regex:/1[3-8]\d{9}/',
             ],[
             'username.required'=>'用户名不能为空',
-            'username.regex'=>'用户名需要6-18位字母数字下划线',
+            'username.regex'=>'用户名需要6-30位字母数字下划线',
             'password.required'=>'密码不能为空',
             'password.regex' => '密码需要6-18位字母数字下划线',
             'repassword.required'=>'确认密码不能为空',
@@ -150,7 +150,34 @@ class UserController extends Controller
     	
     }
 
+    /*
+    *修改用户
+    **/
+    public function getEdit(Request $request)
+    {
+        $id=$request->input('id');
 
+        $user=DB::table('users')->where('id',$id)->first();
+        return view('user.edit',['user'=>$user]);
+        //dd($user);
+    }
+    /*
+    *修改操作
+    **/
+    public function postUpdate(Request $request)
+    {
+        //dd($request->all());
+        $data=$request->except(['_token','id']);
+        //dd($data);
+        $id=$request->input('id');
+        $data['pic']=$this->upload($request);
+        $res=DB::table('users')->where('id',$id)->update($data);
+        if($res){
+            return redirect('/admin/user/index')->with('success','修改成功');
+        }else{
+            return back()->with('error','数据修改失败');
+        }
+    }
     /*
     *ajax删除用户
     *
@@ -169,4 +196,6 @@ class UserController extends Controller
     	}
 
     }
+
+
 }

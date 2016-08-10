@@ -90,7 +90,7 @@
                     <td class="center">
                            
                             <!-- <button class="btn btn-info btn-xs btn_update" href="{:U('edit',array('id'=>$item['id']))}"><i class="fa fa-paste"></i> 修改</button> -->
-                            <button class="btn btn-info btn-xs btn_update" href=""><i class="fa fa-paste"></i> 修改</button>
+                            <a href="/admin/user/edit?id={{$v->id}}" class="btn btn-info btn-xs btn_update"><i class="fa fa-paste"></i> 修改</a>
                             <!-- <button class="btn btn-warning btn-xs btn_delete" href="javascript:ajaxDelete('{:U('delete',['id'=>$item['id']])}')"><i class="fa fa-times"></i> 删除</button> -->
                             <button class="btn btn-warning btn-xs btn_delete" type="button"><i class="fa fa-times"></i> 删除</button>
                     </td>
