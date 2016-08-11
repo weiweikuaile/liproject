@@ -25,7 +25,7 @@
         		<div class="row">
         		<div class="col-md-6 col-md-offset-3">
         			<div class="alert alert-info" role="alert">
-                    欢迎您注册凡客网，您的激活邮件已经发送至您的邮箱，请前去激活。
+                    祝贺您激活成功！
                      <a href="{{url('/')}}">欢迎返回凡客网</a>   
                     </div> 
         		</div>

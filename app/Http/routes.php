@@ -28,6 +28,8 @@ Route::get('/', function () {
 	//商品详情
 	//Route::Controller('/goods','GoodsController');
 //});
+//前台登录和注册页面************准备放路由组里
+
 //后台登录页面************
 Route::Controller('/admin/login','LoginController');
 
@@ -35,7 +37,7 @@ Route::Controller('/admin/login','LoginController');
 Route::get('/register','LoginController@register');
 Route::post('/doregister','LoginController@doregister');
 //验证码测试，后边改过来
-//Route::get('/vcode','LoginController@vcode');
+Route::post('/vvcode','LoginController@vvcode');
 Route::get('/sendmail','LoginController@sendmail');
 /*Route::get('/sendmail',function(){
 	return view('email.index');

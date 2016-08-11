@@ -12,32 +12,38 @@ use Gregwar\Captcha\CaptchaBuilder;
 
 class LoginController extends Controller
 {
-	//后台登录页面 未写页面
+	//后台登录页面
 	public function getIndex()
 	{
 		//解析模板
 		return view('admin.login');
 	}
-	//后台登录处理，未写页面
+	//后台登录处理，
 	public function postDologin(Request $request)
 	{
-		//
-		$user=DB::table('user')
+		//dd($request->all());//检查用户是否存在
+		$user=DB::table('users')
 			->where('username',$request->input('username'))
 			->first();
+		// dd($user);
+
 		if(!empty($user)){
+			//dd(Hash::check($request->input('password'),$user->password));
+			//dd(Hash::check($request->input('password'));报错FatalErrorException in LoginController.php line 32: syntax error, unexpected ';'
+			//dd($user->password);
 			if(Hash::check($request->input('password'),$user->password)){
 				//登录成功
+
 				session(['id'=>$user->id]);
 				//跳转页面
-			return redirect('/admin')->with('success','欢迎');
+			return redirect('/admin')->with('success','欢迎'.$user->username.'凡客网');
 
 			}else{
-				return back()->with('error','用户名或密码错误');
+				return back()->with('error','用户名或密码错误1');
 			}
 
 		}else{
-			return back()->with('error','用户名或密码错误');
+			return back()->with('error','用户名或密码错误2');
 		}
 
 	}
@@ -100,6 +106,17 @@ class LoginController extends Controller
         $builder->output();
         
 	}
+	//失去焦点验证验证码
+	public function vvcode(Request $request)
+	{
+		$verify = $request->input('verify');
+
+		if($verify == session('Vcode')){
+			echo "1";
+		}else{
+			echo "0";
+		}
+	}
 
 	//发送邮件测试
 	public function sendmail($id,$token,$email)
@@ -148,7 +165,8 @@ class LoginController extends Controller
 				//修改状态
 				$arr = ['status'=>2,'token'=>str_random(50)];
 				if(DB::table('users')->where('id',$id)->update($arr)){
-					echo '祝贺你激活成功！';//激活成功后跳转到激活成功页面
+					//'祝贺你激活成功！';激活成功后跳转到激活成功页面
+					return view('email.successjihuo'); 
 				}else{
 					echo '哎呦，姿势不对，看看原因';
 				}
