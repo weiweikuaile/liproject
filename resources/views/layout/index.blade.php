@@ -257,8 +257,13 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
+                       <!--  <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a> -->
+                        <form action="/admin/login/logout" method="post">
+                            <li>
+                            {{csrf_field()}}
+                            <button id="logout"><i class="fa fa-sign-out fa-fw"></i>退出</button>
+                            </li>
+                        </form>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
@@ -452,6 +457,24 @@
     <!-- Custom Theme JavaScript -->
     <script src="/AD/dist/js/sb-admin-2.js"></script>
     @section('myjs')
+    <!--<script type="text/javascript">
+    $('#logout').click(function(){
+        //var id=session('id');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.post('{{url("/admin/login")}}',{id:id},function(data){
+            //console.log(data);
+            if(data==1){
+    
+            }else{
+    
+            }
+        })
+    })
+    </script>-->
     @show
 
 </body>

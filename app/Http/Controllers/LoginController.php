@@ -26,17 +26,18 @@ class LoginController extends Controller
 			->where('username',$request->input('username'))
 			->first();
 		// dd($user);
-
+			//检查用户是否存在
 		if(!empty($user)){
 			//dd(Hash::check($request->input('password'),$user->password));
 			//dd(Hash::check($request->input('password'));报错FatalErrorException in LoginController.php line 32: syntax error, unexpected ';'
 			//dd($user->password);
+			//检测密码是否一致
 			if(Hash::check($request->input('password'),$user->password)){
 				//登录成功
 
 				session(['id'=>$user->id]);
 				//跳转页面
-			return redirect('/admin')->with('success','欢迎'.$user->username.'凡客网');
+			return redirect('/admin')->with('success','欢迎'.$user->username.'登录凡客网');
 
 			}else{
 				return back()->with('error','用户名或密码错误1');
@@ -48,8 +49,17 @@ class LoginController extends Controller
 
 	}
 
-	//后台退出,未做用清楚session来做
-
+	//后台退出,session来做
+	public function postLogout(Request $request)
+	{
+		//dd($request->session()->all());
+		$request->session()->flush();
+		//退出后，判断执行成功，跳转到后台登录页面/前台登录页面也是未登录状态
+		
+		return redirect('/admin/login')->with('error','您已退出后台');
+      //return back()->with('error','您有未结束的操作，退出登录失败');//进入下一请求
+      
+	}
 	//前台页面的注册显示
 	public function register()
 	{
@@ -180,4 +190,114 @@ class LoginController extends Controller
 		}
 
 	}
+
+	//前台登录页面
+	public function hlogin()
+	{
+		//解析模板
+		return view('home.hlogin');
+	}
+
+	//前台登录处理，
+	public function dohlogin(Request $request)
+	{
+
+		//dd($request->all());//检查用户是否存在
+		$user=DB::table('users')
+			->where('email',$request->input('email'))
+			->first();
+		//dd($user);
+			//检查用户是否存在
+		if(!empty($user)){
+			//dd(Hash::check($request->input('password'),$user->password));
+			//dd(Hash::check($request->input('password'));报错FatalErrorException in LoginController.php line 32: syntax error, unexpected ';'
+			//dd($user->password);
+			//检测密码是否一致
+			if(Hash::check($request->input('password'),$user->password)){
+				//登录成功
+
+				session(['id'=>$user->id]);
+				//跳转页面
+			return redirect('/')->with('success','欢迎'.$user->email.'登录凡客网');
+
+			}else{
+				return back()->with('error','邮箱名或密码错误1');
+			}
+
+		}else{
+			return back()->with('error','邮箱名或密码错误2');
+		}
+
+	}
+
+	//前台找回密码的
+	public function yanemail(Request $request)
+	{
+		//echo 1234;
+		return view('home.yanemail');
+	}
+	//处理操作
+	
+	public function doyanemail(Request $request)
+	{
+		if(!empty($data)){
+			echo "1";
+		}else{
+			echo "邮箱不存在";
+		}
+		/*dd($request->all());
+		$verify = $request->email;
+		$data=DB::table('users')
+			->where('email',$verify)
+			->first();*/
+		//dd($email);
+		
+
+	/*
+		
+		$data=DB::table('users')->select($verify);
+
+		if($verify == $data){
+			echo "1";
+		}else{
+			echo "0";
+		}
+		*/
+		//$email=$request->input('email');
+		
+		//dd($request->all());
+		/*
+		//检测邮箱是否正确
+		if($data!)
+		{
+			return back()->with('error','邮箱名不正确');
+		}
+		//处理数据
+		$data=$request->only(['email','password']);
+		$data['password']=Hash::make($data['password']);
+		$data['token']=str_random(50);//验证用户
+		//dd($data);//有数据
+		$id=DB::table('users')->insertGetId($data);
+		if($id){
+			//注册成功，发送激活邮件
+			$this->sendmail($id,$data['token'],$request->input('email'));
+			//return view('home.success',["$data['token']"=>$users,"$request->input('email')"=>$email]);
+			return view('home.success');
+
+		}else{
+			return back()->with('error','没有查询到您的信息');
+		}
+		*/
+		/*
+		if($data){
+			//邮箱名正确，发送找回密码邮件
+			$this->sendmail($id,$data['token'],$request->input('email'));
+			return view(home.success2);
+		}else{
+			return back()->with('error','没有查询到您的信息');
+		}
+
+	*/
+	}
+
 }

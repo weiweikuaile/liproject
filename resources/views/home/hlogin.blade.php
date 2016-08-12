@@ -2,7 +2,7 @@
 <html>
 <head>
         <meta charset="utf-8">
-        <title>用户登录</title>
+        <title>前台用户登录</title>
         <link rel="stylesheet" href="dist/css/dengzhu.css">
 </head>
 <body>
@@ -18,8 +18,9 @@
                 <li class="relative clearfix">
                     <h2 class="title">会员登录</h2>
                 </li>
+                <form action="/dohlogin" method="post">
                 <li class="relative">
-                    <input id="account" class="account input va" name="account" value="" type="text" placeholder="邮箱" autocomplete="off">
+                    <input id="account" class="account input va" name="email" value="" type="text" placeholder="邮箱" autocomplete="off">
                     <span class="err-tip hide">
                         <i></i>
                         <em></em>
@@ -43,17 +44,19 @@
                     </span>
                 </li>
                 <li>
-                    <span id="login-btn" class="login-btn btn">登录</span>
+                    <button id="login-btn" class="login-btn btn">登录</button>
                 </li>
+                {{csrf_field()}}
+                </form>
                 <li class="other-opts">
                     <span class="remember-me">
                         <i class="iconfont">&#xe613;</i>
                         记住登录状态
                     </span>
                     <span class="right">
-                        <a class="forget-password" href="//www.yohobuy.com/passport/back/index">忘记密码?</a>
+                        <a class="forget-password" href="./findpwd">忘记密码?</a>
                         |
-                        <a class="fast-reg" href="./index.html">快速注册</a>
+                        <a class="fast-reg" href="./register">快速注册</a>
                     </span>
                 </li>
               
@@ -64,8 +67,8 @@
 
 
 
-    <script src="js/libs.js"></script>
-    <script src="js/passport.login.js"></script>
+    <script src="dist/js/libs.js"></script>
+    <script src="dist/js/passport.login.js"></script>
     <!-- Google Tag Manager -->
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-W958MG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script>

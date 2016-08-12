@@ -26,7 +26,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		    <ul class="nav navbar-nav" style="float:right">
 		    	<li><a href="">您好欢迎光临凡客诚品!</a></li>
-		    	<li><a href="">登录</a></li>
+		    	<li><a href="{{url('/hlogin')}}">登录</a></li>
 		    	<li><a href="">|</a></li>
 		    	<li><a href="{{url('/register')}}">注册</a></li>
 		    	<li><a href="">我的订单</a></li>

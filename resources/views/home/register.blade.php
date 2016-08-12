@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{csrf_token()}}">
-        <title>新用户注册</title>
+        <title>前台&后台新用户注册</title>
         <link rel="stylesheet" href="/dist/css/register.css">
         <link rel="stylesheet" href="/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/dist/css/bootstrap-theme.min.css">
@@ -51,7 +51,7 @@
 						  </div>
 						  <div class="form-group">
 						    <label for="exampleInputPassword1">验证码</label>
-						    <input type="text"  id="vcode" name="vcode" class="form-control"style="width:100px" placeholder="vcode">
+						    <input type="text"  id="vcode" name="vcode" readmin="验证码错误" class="form-control"style="width:100px" placeholder="vcode"><span id="s"></span>
 						  	<br>
 						  	<div style="width:50px;height:50px;float:left;">
 						  		<img src="/admin/login/vcode" onclick="this.src=this.src+'?a=1'" style="cursor:pointer;" alt="">
@@ -73,25 +73,35 @@
         	<!---->
         </div>
         	<script type="text/javascript">
-        		$('#vcode').blur(function(){
+        		/*$('form').submit(function(){
+        			//阻止默认行为
+        			return false;
+        		})*/
+        		$('#vcode').blur(function(){//kejianjquery03/1.htmlvedio1
         			//alert(333);
 					var vvcode=$('input[name=vcode]').val();
 					//alert(vvcode);
-					
+					var text = $('#vcode');//获取属性 提示信息
 					//设置ajax全局配置
 					$.ajaxSetup({
 					    headers: {
 					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					    }
+					    },
+					    /*async:false*/
 					});
 
 					//发送ajax post请求
 		        	$.post('{{url("/vvcode")}}',{verify:vvcode},function(data){
 		            	//console.log(data);
+		            	//alert(data);
 		                if(data == "1"){
-		                    alert('验证码正确');
+		                	//$('#s').css('border','1px solid green');
+		                	text.next().html('√').css('color','green');
+		                    //alert('验证码正确');
 		                }else{
-		                	alert('验证码错误');
+		                	text.next().html('×验证码错误').css('color','red');
+		                	//$('#s').css('border','1px solid red');
+		                	//alert('验证码错误');
 		                }
 		            });
 
